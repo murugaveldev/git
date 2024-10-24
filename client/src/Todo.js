@@ -19,7 +19,7 @@ const Todo = () => {
     // Fetch all tasks
     const fetchTasks = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/v1/get");
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/get`);
             console.log(response.data.data);
             setTasks(response.data.data);
         } catch (error) {
@@ -32,7 +32,7 @@ const Todo = () => {
     // Add a new task
     const addTask = async () => {
         try {
-            await axios.post("http://localhost:8000/api/v1/add", { name, age });
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/add`, { name, age });
             setName("");
             setAge("");
             fetchTasks(); // Refresh task list
@@ -45,7 +45,7 @@ const Todo = () => {
 
     const updateTask = async () => {
         try {
-            await axios.put(`http://localhost:8000/api/v1/update/${editId}`, { name, age });
+            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/update/${editId}`, { name, age });
             setEditId(null);
             setName("");
             setAge("");
@@ -63,7 +63,7 @@ const Todo = () => {
         // If the user confirms, proceed with the delete operation
         if (confirmed) {
             try {
-                await axios.delete(`http://localhost:8000/api/v1/delete/${id}`);
+                await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/delete/${id}`);
                 fetchTasks(); // Refresh task list
             } catch (error) {
                 console.log("Error deleting task", error);
